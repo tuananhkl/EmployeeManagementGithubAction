@@ -13,9 +13,9 @@ public class Repository<T> : IRepository<T> where T : class
         Context = context;
     }
 
-    public async Task<IEnumerable<T>> GetAll()
+    public IQueryable<T> GetAll()
     {
-        return await Context.Set<T>().ToListAsync();
+        return Context.Set<T>().AsQueryable();
     }
 
     public async Task<T> GetById(int id)

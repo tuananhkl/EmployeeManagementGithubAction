@@ -1,6 +1,7 @@
 using EmployeeManagement.API.Models;
 using EmployeeManagement.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.API.Controllers;
 
@@ -17,9 +18,11 @@ public class EmployeeController : ControllerBase
 
     // GET: api/Employee
     [HttpGet]
-    public async Task<IEnumerable<Employee>> GetEmployees()
+    public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
     {
-        return await _employeeRepository.GetAll();
+        var employees = await _employeeRepository.GetAll().ToListAsync();
+        
+        return employees;
     }
 
     // GET: api/Employee/5
